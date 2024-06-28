@@ -1,4 +1,10 @@
 {
+  "compilerOptions": {
+    "baseUrl": ".", // 프로젝트 루트를 기준으로 설정
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
   "files": [],
   "references": [
     {
