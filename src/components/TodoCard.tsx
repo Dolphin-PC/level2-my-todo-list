@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
-import { TTodo } from "../App";
+import React, { ReactNode } from "react";
 import Button from "./Button";
+import { TTodo } from "@/pages/MainPage";
 
 type TProps = {
   todo: TTodo;
@@ -36,4 +36,4 @@ const TodoCard = (props: TProps): ReactNode => {
   );
 };
 
-export default TodoCard;
+export default React.memo(TodoCard);
