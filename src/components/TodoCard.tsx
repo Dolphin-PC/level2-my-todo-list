@@ -14,7 +14,8 @@ const TodoCard = (props: TProps): ReactNode => {
   return (
     <div
       key={todo.id}
-      className="w-2/6 p-3 border-solid border-2 border-green-800 rounded-lg"
+      className="flex flex-col gap-5 p-3 border-solid border-2 border-green-800 rounded-lg"
+      style={{ flexBasis: "calc(33.333% - 1rem)", margin: "0.5rem" }}
     >
       <h3 className="text-xl font-bold">{todo.title}</h3>
       <p>{todo.content}</p>
