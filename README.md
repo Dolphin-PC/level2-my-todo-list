@@ -71,5 +71,5 @@
 ```
 // 프로젝트 시작
 yarn
-yarn start
+yarn dev
 ```
