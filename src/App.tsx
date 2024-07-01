@@ -1,7 +1,12 @@
-import MainPage from "./pages/MainPage";
+import MainPage from "@/components/pages/MainPage";
+import Layout from "./components/atom/Layout";
 
 const App = () => {
-  return <MainPage />;
+  return (
+    <Layout>
+      <MainPage />
+    </Layout>
+  );
 };
 
 export default App;

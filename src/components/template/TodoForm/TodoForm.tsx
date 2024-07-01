@@ -1,29 +1,27 @@
-import { TTodo } from "@/pages/MainPage";
+import { addTodo } from "@/redux/modules/todos";
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
-import Button from "../Button";
+import Button from "../../atom/Button";
+import { useDispatch } from "react-redux";
 
-type TProps = {
-  setTodos: React.Dispatch<React.SetStateAction<TTodo[]>>;
-  todos: TTodo[];
-};
-
-const TodoForm = (props: TProps) => {
+const TodoForm = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const titleRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useDispatch();
 
   const onAddTodo = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (!title || !content) return;
 
-    const newTodo: TTodo = {
-      id: props.todos.length + 1,
-      title,
-      content,
-      isDone: false,
-    };
+    dispatch(
+      addTodo({
+        title,
+        content,
+        isDone: false,
+      })
+    );
 
-    props.setTodos((prev) => [...prev, newTodo]);
     setTitle("");
     setContent("");
 
@@ -66,4 +64,4 @@ const TodoForm = (props: TProps) => {
   );
 };
 
-export default TodoForm;
+export default React.memo(TodoForm);

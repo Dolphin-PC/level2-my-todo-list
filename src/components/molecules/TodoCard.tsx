@@ -1,15 +1,22 @@
 import React, { ReactNode } from "react";
-import Button from "./Button";
-import { TTodo } from "@/pages/MainPage";
+import Button from "../atom/Button";
+import { deleteTodo, toggleTodo, TTodo } from "@/redux/modules/todos";
+import { useDispatch } from "react-redux";
 
 type TProps = {
   todo: TTodo;
-  onToggleTodo: (id: number) => void;
-  onDeleteTodo: (id: number) => void;
 };
 
 const TodoCard = (props: TProps): ReactNode => {
-  const { todo, onToggleTodo, onDeleteTodo } = props;
+  const { todo } = props;
+  const dispatch = useDispatch();
+
+  const onDeleteTodo = (id: number) => {
+    dispatch(deleteTodo(id));
+  };
+  const onToggleTodo = (id: number) => {
+    dispatch(toggleTodo(id));
+  };
 
   return (
     <div
