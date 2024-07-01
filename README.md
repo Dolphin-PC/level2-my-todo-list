@@ -1,94 +1,70 @@
-# 2024 이노베이션 캠프 | React 주특기 과제 Level 1
+# 2024 이노베이션 캠프 | React 주특기 과제 Level 2
 
-## 🌐 Vercel배포 - https://level1-my-todo-list.vercel.app
+> React Lv.1 를 react-router-dom, styled-components, redux를 사용해서 My Todo List 를 다시 만들어봅니다.
 
-## ✅ Why: 과제 제출시에는 아래 질문의 답변과 함께 제출해주세요.
+## 🌐 Vercel배포 - https://level2-my-todo-list.vercel.app
 
-### 1. **JSX 문법**이란 무엇일까요?
+## ✅ Feature(구현기능)
 
-- html과 js를 하나의 파일에서 작성할 수 있도록 한 React만의 파일확장자
+- Create Todo
+- Read Todos, Todo
+- Update Todo
+- Delete Todo
 
-### 2. 사용자가 입력하는 값, 또는 이미 입력된 값, 투두의 타이들과 같은 **애플리케이션의 상태를 관리하기 위해 리액트의 어떤 기능을 사용하셨나요**?
+## ✅ Requirement(요구사항)
 
-- useState함수
+<details>
+<summary>공통</summary>
 
-### 3. 애플리케이션의 **상태 값들을 컴포넌트 간 어떤 방식으로 공유하셨나요**?
+- **todos 데이터는 리덕스를 사용해서 전역으로 상태를 관리합니다.**
+- todos 모듈은 **`Ducks 패턴`**으로 구현합니다.
+</details>
 
-- props전달
+<details>
+<summary>메인 페이지</summary>
 
-### 4. 기능 구현을 위해 **불변성 유지가** 필요한 부분이 있었다면 하나만 설명해 주세요.
+- **디자인과 화면 구성은 자유롭게 구현합니다.**
+- **Todo의 상태에 “완료” 그룹과 “진행중" 그룹을 나뉘어서 보이도록 구현**합니다. 예시 영상 꼭 위, 아래가 아니어도 되며 창의적으로 구현해도 됩니다.
+- **Todo를 추가하면 제목 `input`과 내용 `input`은 다시 빈 값이 되도록 구현**합니다.
+- **input에 값이 있는 상태에서 상세페이지로 이동하는 경우, input의 value가 초기화** 되도록 구현합니다.
+- Todo의 완료상태**가 `true`**이면**,** 상태 버튼의 라벨을 **“취소”, `false`** 이면 라벨을 “**완료”** 로 보이도록 구현합니다.
+- 전체 화면의 **최대 넓이는 `1200px`, 최소 넓이는 `800px`로 제한**하고, **컨텐츠를 화면의 가운데로 배치** 합니다.
+- `상세보기` 클릭하면 **Todo의 상세 페이지로 이동**합니다. 상세 페이지에서 보여야 하는 내용은 아래 토글에서 별도 안내합니다.
 
-> 불변성 : React에서 state나 props를 업데이트할 떄, 기존 데이터를 직접 수정하는 것이 아닌 새로운 데이터를 생성하여 업데이트
+</details>
 
-- Todo List 추가/삭제
-  - `todos`의 배열에 값을 추가하고, 렌더링이 되기 위해서는 `setTodos`라는 setter함수를 통해 새로운 `TODO`를 추가해야 했습니다.
-  - 기존의 `todos`에서 특정 `TODO`를 제거하기 위해, `filter함수`와 `setTodos`를 활용했습니다.
+<details>
+<summary>상세 페이지</summary>
 
-### 5. 반복되는 컴포넌트를 파악하고 재사용할 수 있는 **컴포넌트로 분리해 보셨나요?** 그렇다면 **어떠한 이점이 있었나요?**
+- 상세 페이지의 디자인과 화면 구성은 자유롭게 구현하되, 아래 요소들은 보여야 합니다. - Todo의 ID - Todo의 제목 - Todo의 내용 - `이전으로` 버튼 - `이전으로` 버튼을 구현하고, `이전으로` 버튼을 클릭하면 리스트 화면으로 되돌아 갑니다.
+</details>
 
-- TodoCard 분리
+<details>
+<summary>제한사항</summary>
 
-  1.  코드 재사용성 증가
-  2.  useCallback-React.memo를 활용한 리렌더링 방지
-      - 부모 컴포넌트의 `todos` state가 변경되면, 자식 컴포넌트인 `TodoCard`가 리렌더링 되었습니다.
-      - 이를 방지하고자, TodoCard에 전달되는 `onToggleTodo, onDeleteTodo`함수를 `useCallback`으로 메모이제이션하고, `React.memo(TodoCard)`로 했습니다.
+- map을 사용할 때 **반드시 key**을 넣어야 하며, `map` 의 **index를 사용을 금지**합니다. 이것을 금지하는 이유는 강의에 다루었습니다.
+- Todo Id 생성 시 `todos.length` 사용해서 생성하지 않습니다. `todos.length` 을 사용해서 id 생성 시 **발생할 수 있는 문제점에 대해 고민**해보시길 바랍니다.
+</details>
 
-- TodoForm 분리
-  1.  코드 관심사 분리
-      - MainPage의 로직과 Form의 로직을 분리하여, 코드의 가독성을 높였습니다.
-  2.  리렌더링 최소화
-      - input 입력마다, state의 변경으로 인해 MainPage가 리렌더링 되었습니다.
-      - 이를 방지하고자, TodoForm으로 input관련 코드를 자식 컴포넌트로 분리하였고, 부모 컴포넌트의 리렌더링을 최소화했습니다.
+## 💬 Why: 과제 제출시에는 아래 질문의 답변과 함께 제출해주세요.
 
-## 🤔 의문점
+### 1. 상세 페이지 이동을 위해 react-router-dom 라이브러리를 사용하셨을 거예요, CRA 라우팅이란 무엇인가요?
 
-### 1. 커스텀 컴포넌트의 props
+### 2. Redux를 사용하여 애플리케이션의 상태 관리를 하셨을 것입니다. 어떤 상태들을 Redux로 관리하셨나요? 그 상태 값을 Redux를 통해 관리함으로 얻은 이점은 무엇이었나요?
 
-- 기본 틀을 setting해놓고, 활용하는 화면에서 custom하게 하고 싶을 때, button의 property를 그대로 사용할 수 있는 효율적인 방법이 있을까요?
-- Button.tsx
-- 예) `<Button type="button" onClick={...}></Button>`
+### 3. Redux의 reducer 함수는가 애플리케이션 로직과 어떻게 상호작용하는지 설명해 주세요.
 
-### 2. 현재 components폴더구조를 `atomic`하게 변경한다면, 아래 구조가 맞는 방법일까요?
+### 4. CSS in JS 라이브러리 중 하나인 "styled component"를 사용했을 때의 이점은 많습니다.  CSS in JS가 제공하는 이점을 두 가지만 설명해 주세요.
 
-- atom (가장 기본적인 단위)
-  - Button.tsx
-  - Layout.tsx
-- molecules
-  - TodoCard.tsx
-- template
+### 5. useEffect hook을 사용한 부분이 있다면, 왜 사용해야 했고, 해당 hook이 언제 실행되는지 설명해주세요.
 
-  - TodoForm.tsx
+## 프로젝트 환경
 
-- 🤔 보통 이런 구조라고 하던데, `pages`를 `components`하위에 두는게 맞나요?
+- ⚙️ React, Vite, yarn
+- 🔮Tailwind, styled-component
 
 ```
-src/
-├── components/
-│   ├── atoms/
-│   │   ├── Button.js
-│   │   ├── Input.js
-│   │   └── ...
-│   ├── molecules/
-│   │   ├── Form.js
-│   │   ├── Card.js
-│   │   └── ...
-│   ├── organisms/
-│   │   ├── Header.js
-│   │   ├── Footer.js
-│   │   └── ...
-│   ├── templates/
-│   │   ├── HomeTemplate.js
-│   │   ├── AboutTemplate.js
-│   │   └── ...
-│   └── pages/
-│       ├── HomePage.js
-│       ├── AboutPage.js
-│       └── ...
-├── assets/
-│   ├── images/
-│   ├── styles/
-│   └── ...
-├── utils/
-├── hooks/
-└── ...
+// 프로젝트 시작
+yarn
+yarn start
 ```
