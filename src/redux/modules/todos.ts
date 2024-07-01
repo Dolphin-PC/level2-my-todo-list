@@ -32,6 +32,7 @@ const initialState: TTodo[] = [
 const ADD_TODO = "todos/ADD_TODO";
 const TOGGLE_TODO = "todos/TOGGLE_TODO";
 const DELETE_TODO = "todos/DELETE_TODO";
+const UPDATE_TODO = "todos/UPDATE_TODO";
 
 export const addTodo = (todo: TTodoCreate) => {
   const id = Math.floor(Math.random() * 1000000);
@@ -52,8 +53,17 @@ export const deleteTodo = (id: number) => ({
   payload: id,
 });
 
+export const updateTodo = (todo: TTodo) => ({
+  type: UPDATE_TODO,
+  payload: todo,
+});
+
 type TAction = {
-  type: typeof ADD_TODO | typeof TOGGLE_TODO | typeof DELETE_TODO;
+  type:
+    | typeof ADD_TODO
+    | typeof TOGGLE_TODO
+    | typeof DELETE_TODO
+    | typeof UPDATE_TODO;
   payload: TTodo | number;
 };
 
@@ -68,6 +78,18 @@ export const todos = (state = initialState, action: TAction): TTodo[] => {
       );
     case DELETE_TODO:
       return state.filter((todo) => todo.id !== action.payload);
+    case UPDATE_TODO:
+      return state.map((todo) => {
+        const { id, content, title } = action.payload as TTodo;
+        if (todo.id === id) {
+          return {
+            ...todo,
+            title: title,
+            content: content,
+          };
+        }
+        return todo;
+      });
     default:
       return state;
   }
