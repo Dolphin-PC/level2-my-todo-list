@@ -2,8 +2,9 @@ import TodoForm from "@/components/template/TodoForm";
 import TodoCard from "@/components/molecules/TodoCard";
 import { useSelector } from "react-redux";
 import { TStore } from "@/redux/config/configStore";
+import { ReactNode } from "react";
 
-const MainPage = (): React.ReactNode => {
+const MainPage = (): ReactNode => {
   const todos = useSelector((state: TStore) => state.todos);
 
   return (

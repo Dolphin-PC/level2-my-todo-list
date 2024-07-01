@@ -1,6 +1,6 @@
 import { addTodo } from "@/redux/modules/todos";
 import React, { ChangeEvent, FormEvent, useRef, useState } from "react";
-import Button from "../../atom/Button";
+import Button from "@/components/atom/Button";
 import { useDispatch } from "react-redux";
 
 const TodoForm = () => {

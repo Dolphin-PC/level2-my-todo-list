@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 import Button from "../atom/Button";
 import { deleteTodo, toggleTodo, TTodo } from "@/redux/modules/todos";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 type TProps = {
   todo: TTodo;
@@ -10,6 +11,7 @@ type TProps = {
 const TodoCard = (props: TProps): ReactNode => {
   const { todo } = props;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onDeleteTodo = (id: number) => {
     dispatch(deleteTodo(id));
@@ -30,15 +32,18 @@ const TodoCard = (props: TProps): ReactNode => {
       <div className="flex gap-3">
         <div className="flex-1" onClick={() => onDeleteTodo(todo.id)}>
           <Button className="border-solid border-2 border-red-500">
-            삭제하기
+            💥 삭제하기
           </Button>
         </div>
 
         <div className="flex-1" onClick={() => onToggleTodo(todo.id)}>
           <Button className="border-solid border-2 border-green-500">
-            {todo.isDone ? "취소" : "완료"}
+            {todo.isDone ? "❗️ 취소" : "✅ 완료"}
           </Button>
         </div>
+      </div>
+      <div onClick={() => navigate(`/${todo.id}`)}>
+        <Button className="bg-blue-300">💬 자세히 보기</Button>
       </div>
     </div>
   );
