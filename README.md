@@ -63,7 +63,7 @@
 - todo의 정보(id, title, content, isDone)정보를 redux로 관리했습니다.
 - 이러한 정보들을 global state로 관리함으로써,
   - `MainPage`컴포넌트에서 `TodoCard`의 props로 Todo의 데이터를 전달하지 않아도 되었습니다. (props drilling 해결)
-  - TodoCard의 사용자 Action(삭제,완료)와 같은 함수를 통해, MainPage의 todoList의 상태를 관리하기 위해 `setter`함수를 전달할 필요가 없었습니다. (자식 > 부모, state 해결)
+  - TodoCard의 사용자 Action(삭제,완료)와 같은 함수를 통해, MainPage의 todoList의 상태를 관리하기 위해 `setter`함수를 전달할 필요가 없었습니다. (Lifting State Up 해결)
 
 ### 3. Redux의 reducer 함수가 애플리케이션 로직과 어떻게 상호작용하는지 설명해 주세요.
 
